@@ -36,5 +36,7 @@ public class Main {
         tF.setWins(50);
         tF.setLosses(7);
         System.out.printf("%s | %d | %d%n", tF.getName(), tF.getWins(), tF.getLosses());
+
+        ctx.close();
     }
 }
