@@ -9,9 +9,6 @@ public class Main {
     public static void main(String[] args) {
         var ctx= new AnnotationConfigApplicationContext(ProjectConfig.class);
 
-//        var e= ctx.getBean(Engine.class);
-//        e2.setName("V12 Engine");
-
         // lambo car
         var c= ctx.getBean(Car.class);
         System.out.println(c);
