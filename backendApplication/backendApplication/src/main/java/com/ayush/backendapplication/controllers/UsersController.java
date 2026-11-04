@@ -2,22 +2,20 @@ package com.ayush.backendapplication.controllers;
 
 import com.ayush.backendapplication.dtos.UserDto;
 import org.apache.catalina.User;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.RequestEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/users")
 public class UsersController {
     @GetMapping
-    public String getUsers() {
-        return "Get all the users";
+    public ResponseEntity<String> getUsers() {
+        return ResponseEntity.status(HttpStatus.OK).body("Get all the users");
     }
 
     @GetMapping("/{userId}/posts/{postId}")
-    public String getOnePostOfUser(@PathVariable(name = "userId") Long authorId, @PathVariable Long postId) {
-        return "Post of id- " + postId + " by author with id- " + authorId;
+    public ResponseEntity<String> getOnePostOfUser(@PathVariable(name = "userId") Long authorId, @PathVariable Long postId) {
+        return ResponseEntity.status(HttpStatus.OK).body(String.format("Post of id- %s by author with id- %s", postId, authorId));
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -40,10 +38,13 @@ public class UsersController {
         return String.format("{\"message\": \"Creating a user\", \"name\": \"%s\", \"age\": \"%d\", \"ig\": \"%s\", \"dc\": \"%s\"}", userDto.name(), userDto.age(), userDto.ig_id(), userDto.dc_id());
     }
 
-    @PostMapping("/requestEntity")
-    public String createUserWithRequestEntity(RequestEntity<UserDto> requestEntity) {
+    @PostMapping(value = "/requestEntity", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> createUserWithRequestEntity(RequestEntity<UserDto> requestEntity) {
         HttpHeaders headers= requestEntity.getHeaders();
         UserDto body= requestEntity.getBody();
-        return body.toString() + headers.toString();
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .header("My-Hobby", "Gymming")
+                .body(String.format("{\"message\": \"Creating user with req and res entity\", \"body\": \"%s\", \"headers\": \"%s\"}", body.toString(), headers.get("User-Agent")));
     }
 }
