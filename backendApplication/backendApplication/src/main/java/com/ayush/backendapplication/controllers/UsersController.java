@@ -1,5 +1,6 @@
 package com.ayush.backendapplication.controllers;
 
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +19,8 @@ public class UsersController {
         return "Post of id- " + postId + " by author with id- " + authorId;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String getOneUser(@PathVariable Long id) {
-        return "Getting one user by id " + id;
+        return String.format("{\"message\": \"Getting one user by id\", \"id\": %d}", id);
     }
 }
