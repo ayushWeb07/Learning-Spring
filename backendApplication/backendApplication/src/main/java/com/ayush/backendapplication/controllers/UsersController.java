@@ -1,7 +1,10 @@
 package com.ayush.backendapplication.controllers;
 
 import com.ayush.backendapplication.dtos.UserDto;
+import org.apache.catalina.User;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.RequestEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -35,5 +38,12 @@ public class UsersController {
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public String createUser(@RequestBody UserDto userDto) {
         return String.format("{\"message\": \"Creating a user\", \"name\": \"%s\", \"age\": \"%d\", \"ig\": \"%s\", \"dc\": \"%s\"}", userDto.name(), userDto.age(), userDto.ig_id(), userDto.dc_id());
+    }
+
+    @PostMapping("/requestEntity")
+    public String createUserWithRequestEntity(RequestEntity<UserDto> requestEntity) {
+        HttpHeaders headers= requestEntity.getHeaders();
+        UserDto body= requestEntity.getBody();
+        return body.toString() + headers.toString();
     }
 }
