@@ -1,5 +1,6 @@
 package com.ayush.backendapplication.controllers;
 
+import com.ayush.backendapplication.dtos.UserDto;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,5 +30,10 @@ public class UsersController {
     @GetMapping(value = "/headers", produces = MediaType.APPLICATION_JSON_VALUE)
     public String readHeaders(@RequestHeader("User-Agent") String userAgent, @RequestHeader("Accept") String accept, @RequestHeader(name = "User-Hobby", required = false, defaultValue = "Gymming") String userHobby) {
         return String.format("{\"message\": \"Fetching all the request headers\", \"userAgent\": \"%s\", \"accept\": \"%s\", \"userHobby\": \"%s\"}", userAgent, accept, userHobby);
+    }
+
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public String createUser(@RequestBody UserDto userDto) {
+        return String.format("{\"message\": \"Creating a user\", \"name\": \"%s\", \"age\": \"%d\", \"ig\": \"%s\", \"dc\": \"%s\"}", userDto.name(), userDto.age(), userDto.ig_id(), userDto.dc_id());
     }
 }
