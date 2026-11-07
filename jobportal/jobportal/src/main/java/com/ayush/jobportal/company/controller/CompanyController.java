@@ -1,5 +1,6 @@
 package com.ayush.jobportal.company.controller;
 
+import com.ayush.jobportal.company.dto.CompanyDto;
 import com.ayush.jobportal.company.entity.Company;
 import com.ayush.jobportal.company.service.ICompanyService;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ public class CompanyController {
     private final ICompanyService companyService;
 
     @GetMapping(version = "1.0")
-    public ResponseEntity<List<Company>> getAllCompanies() {
+    public ResponseEntity<List<CompanyDto>> getAllCompanies() {
         return ResponseEntity.status(HttpStatus.OK).body(this.companyService.findAll());
     }
 

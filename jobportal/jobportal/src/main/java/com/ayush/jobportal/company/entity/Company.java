@@ -33,18 +33,18 @@ public class Company {
     @Column(name = "location", nullable = false, length = 1000)
     private String location;
 
-    @Column(name = "description", nullable = false)
     @Lob
+    @Column(name = "description", nullable = false)
     private String description;
 
     @Column(name = "website_url", nullable = false, length = 500)
     private String websiteUrl;
 
-    @Column(name = "created_at", nullable = false, updatable = false)
     @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at", nullable = false, updatable = true)
     @UpdateTimestamp
+    @Column(name = "updated_at", nullable = false, updatable = true)
     private LocalDateTime updatedAt;
 }
