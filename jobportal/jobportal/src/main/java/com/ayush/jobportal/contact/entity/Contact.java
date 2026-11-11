@@ -28,8 +28,7 @@ public class Contact {
     @Column(name = "subject", nullable = false, length = 255)
     private String subject;
 
-    @Lob
-    @Column(name = "message", nullable = false)
+    @Column(name = "message", nullable = false, columnDefinition = "TEXT")
     private String message;
 
     @Column(name = "user_type", nullable = false, length = 20)

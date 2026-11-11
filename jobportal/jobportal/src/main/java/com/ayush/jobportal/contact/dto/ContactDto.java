@@ -17,7 +17,7 @@ public record ContactDto(
 
         @NotBlank(message = "Email is required")
         @Size(max= 100, message = "Email must be at most 100 characters long")
-        @Email()
+        @Email(message = "Email must be a valid email address")
         String email,
 
         @NotBlank(message = "Subject is required")
