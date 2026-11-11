@@ -3,13 +3,12 @@ package com.ayush.jobportal.contact.controller;
 import com.ayush.jobportal.contact.dto.ContactDto;
 import com.ayush.jobportal.contact.service.IContactService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v{version}/contacts")
@@ -26,5 +25,10 @@ public class ContactController {
         }
 
         return ResponseEntity.status(HttpStatus.CREATED).body("Your contact request has been successfully created");
+    }
+
+    @GetMapping(version = "1.0")
+    public ResponseEntity<String> getContacts(@RequestParam @Validated @NotBlank(message = "Status cannot be blank") String status) {
+        return ResponseEntity.status(HttpStatus.OK).body(String.format("All contacts has been fetched with status: %s", status));
     }
 }
