@@ -2,6 +2,7 @@ package com.ayush.jobportal.contact.controller;
 
 import com.ayush.jobportal.contact.dto.ContactDto;
 import com.ayush.jobportal.contact.service.IContactService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class ContactController {
     private final IContactService contactService;
 
     @PostMapping(version = "1.0")
-    public ResponseEntity<String> saveContact(@RequestBody ContactDto contactDto) {
+    public ResponseEntity<String> saveContact(@RequestBody @Valid ContactDto contactDto) {
         boolean isContactSaved= this.contactService.saveContact(contactDto);
 
         if (!isContactSaved) {
