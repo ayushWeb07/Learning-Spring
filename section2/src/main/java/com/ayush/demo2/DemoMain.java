@@ -9,9 +9,14 @@ public class DemoMain {
         var ctx= new AnnotationConfigApplicationContext(ProjectConfig.class);
 
         var v= ctx.getBean(Vehicle.class);
-        v.setName("BMW M5");
-        v.setWheels(4);
+        System.out.println(v);
+
+        v.setName("BMW S1000RR");
+        v.setWheels(2);
 
         System.out.println(v);
+
+        // destroy the context
+        ctx.close();
     }
 }
