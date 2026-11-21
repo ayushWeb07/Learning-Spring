@@ -2,6 +2,7 @@ package com.ayush.demo5.beans;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -10,7 +11,7 @@ public class Car {
     private final Engine engine;
 
     @Autowired
-    public Car(Engine engine) {
+    public Car(@Qualifier("v12Engine") Engine engine) {
         this.engine = engine;
         this.name= "";
     }

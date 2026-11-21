@@ -1,9 +1,11 @@
 package com.ayush.demo5.beans;
 
 import jakarta.annotation.PostConstruct;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 @Component("v8Engine")
+@Primary
 public class V8Engine implements Engine {
     private String name;
 
