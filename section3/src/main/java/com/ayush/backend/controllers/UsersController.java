@@ -17,6 +17,20 @@ public class UsersController {
                 .body("Getting all the users...");
     }
 
+    @GetMapping(version = "2.0")
+    public ResponseEntity<String> getAllUsersV2() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body("Getting all the users v2...");
+    }
+
+    @GetMapping(version = "3.0")
+    public ResponseEntity<String> getAllUsersV3() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body("Getting all the users v3...");
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<String> getUserById(@PathVariable Long id) {
         return ResponseEntity
