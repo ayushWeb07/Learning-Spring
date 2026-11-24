@@ -2,7 +2,7 @@ package com.ayush.backend.company.controllers;
 
 import com.ayush.backend.company.entities.CompanyEntity;
 import com.ayush.backend.company.services.ICompanyService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,13 +13,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/companies")
+@RequiredArgsConstructor
 public class CompanyController {
     private final ICompanyService companyService;
-
-    @Autowired
-    public CompanyController(ICompanyService companyService) {
-        this.companyService= companyService;
-    }
 
     @GetMapping
     public ResponseEntity<List<CompanyEntity>> getAllCompanies() {
