@@ -29,8 +29,8 @@ public class CompanyEntity {
     @Column(name = "rating", nullable = false, precision = 3, scale = 2)
     private BigDecimal rating;
 
+    @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     @Lob
-    @Column(name = "description", nullable = false)
     private String description;
 
     @Column(name = "website_url", nullable = false, unique = true, length = 300)
