@@ -1,5 +1,6 @@
 package com.ayush.backend.company.entities;
 
+import com.ayush.backend.entities.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +13,7 @@ import java.util.UUID;
 @Table(name = "companies")
 @Getter
 @Setter
-public class CompanyEntity {
+public class CompanyEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -35,10 +36,4 @@ public class CompanyEntity {
 
     @Column(name = "website_url", nullable = false, unique = true, length = 300)
     private String websiteUrl;
-
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private Instant createdAt;
-
-    @Column(name = "updated_at", nullable = false, updatable = true)
-    private Instant updatedAt;
 }

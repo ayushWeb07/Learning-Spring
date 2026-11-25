@@ -1,6 +1,7 @@
 package com.ayush.backend.contact.entities;
 
 import com.ayush.backend.contact.enums.ContactStatus;
+import com.ayush.backend.entities.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +13,7 @@ import java.util.UUID;
 @Table(name = "contacts")
 @Getter
 @Setter
-public class ContactEntity {
+public class ContactEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -33,10 +34,4 @@ public class ContactEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "contact_status", nullable = false)
     private ContactStatus contactStatus;
-
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private Instant createdAt;
-
-    @Column(name = "updated_at", nullable = false, updatable = true)
-    private Instant updatedAt;
 }
