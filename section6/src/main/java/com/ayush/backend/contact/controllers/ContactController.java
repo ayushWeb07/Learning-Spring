@@ -2,6 +2,7 @@ package com.ayush.backend.contact.controllers;
 
 import com.ayush.backend.contact.dtos.ContactDto;
 import com.ayush.backend.contact.services.IContactService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,7 @@ public class ContactController {
 
 
     @PostMapping
-    public ResponseEntity<String> saveContact(@RequestBody ContactDto contactDto) {
+    public ResponseEntity<String> saveContact(@RequestBody @Valid ContactDto contactDto) {
         boolean isContactSaved= this.contactService.saveContact(contactDto);
 
         if (!isContactSaved) {
