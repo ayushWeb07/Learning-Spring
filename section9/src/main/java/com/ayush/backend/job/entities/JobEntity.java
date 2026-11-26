@@ -63,7 +63,6 @@ public class JobEntity extends BaseEntity {
     @Column(name = "application_deadline", nullable = false)
     private Instant applicationDeadline;
 
-    @ColumnDefault("0")
     @Column(name = "applications_count", nullable = false)
     private Long applicationsCount;
 
