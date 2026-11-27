@@ -1,7 +1,9 @@
 package com.ayush.backend.job.services.impl;
 
+import com.ayush.backend.company.dtos.CompanyResponseDto;
 import com.ayush.backend.company.entities.CompanyEntity;
 import com.ayush.backend.company.repositories.CompanyRepository;
+import com.ayush.backend.company.services.impl.CompanyServiceImpl;
 import com.ayush.backend.job.dtos.JobRequestDto;
 import com.ayush.backend.job.dtos.JobResponseDto;
 import com.ayush.backend.job.entities.JobEntity;
@@ -50,9 +52,25 @@ public class JobServiceImpl implements IJobService {
         return jobEntity;
     }
 
+    private CompanyResponseDto transformCompanyEntityToCompanyResponseDto(CompanyEntity companyEntity) {
+        return new CompanyResponseDto(
+                companyEntity.getId(),
+                companyEntity.getName(),
+                companyEntity.getIndustry(),
+                companyEntity.getNumEmployees(),
+                companyEntity.getRating(),
+                companyEntity.getDescription(),
+                companyEntity.getWebsiteUrl(),
+                companyEntity.getCreatedAt(),
+                companyEntity.getCreatedBy(),
+                companyEntity.getUpdatedAt(),
+                companyEntity.getUpdatedBy());
+    }
+
     private JobResponseDto transformEntityToResponseDto(JobEntity jobEntity) {
         return new JobResponseDto(
                 jobEntity.getId(),
+                this.transformCompanyEntityToCompanyResponseDto(jobEntity.getCompany()),
                 jobEntity.getTitle(),
                 jobEntity.getLocation(),
                 jobEntity.getWorkType(),

@@ -1,5 +1,7 @@
 package com.ayush.backend.job.dtos;
 
+import com.ayush.backend.company.dtos.CompanyResponseDto;
+import com.ayush.backend.company.entities.CompanyEntity;
 import com.ayush.backend.job.enums.JobStatus;
 import com.ayush.backend.job.enums.WorkType;
 
@@ -13,6 +15,7 @@ import java.util.UUID;
  */
 public record JobResponseDto(
         UUID id,
+        CompanyResponseDto company,
         String title,
         String location,
         WorkType workType,
