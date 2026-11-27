@@ -17,7 +17,7 @@ import java.util.List;
 public class JobController {
     private final IJobService jobService;
 
-    @GetMapping
+    @GetMapping(path = "/public")
     public ResponseEntity<List<JobResponseDto>> getAllJobs() {
         return ResponseEntity
                 .status(HttpStatus.OK)

@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -13,8 +14,13 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 public class JobPortalSecurityConfig {
     @Bean
-    SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) {
-        http.authorizeHttpRequests(reqs -> reqs.anyRequest().authenticated());
+    SecurityFilterChain customSecurityFilterChain(HttpSecurity http) {
+        http
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(reqs -> reqs
+                        .requestMatchers(RegexRequestMatcher.regexMatcher(".*public$"))
+                        .permitAll()
+                        .anyRequest().authenticated());
 
         http.formLogin(AbstractHttpConfigurer::disable);
         http.httpBasic(withDefaults());

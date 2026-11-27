@@ -17,7 +17,7 @@ import java.util.List;
 public class CompanyController {
     private final ICompanyService companyService;
 
-    @GetMapping
+    @GetMapping(path = "/public")
     public ResponseEntity<List<CompanyResponseDto>> getAllCompanies() {
         return ResponseEntity
                 .status(HttpStatus.OK)

@@ -17,7 +17,7 @@ import java.util.List;
 public class ContactController {
     private final IContactService contactService;
 
-    @GetMapping
+    @GetMapping(path = "/public")
     public ResponseEntity<List<ContactResponseDto>> getAllContacts() {
         return ResponseEntity
                 .status(HttpStatus.OK)
