@@ -1,6 +1,7 @@
 package com.ayush.backend.contact.services.impl;
 
-import com.ayush.backend.contact.dtos.ContactDto;
+import com.ayush.backend.contact.dtos.ContactRequestDto;
+import com.ayush.backend.contact.dtos.ContactResponseDto;
 import com.ayush.backend.contact.entities.ContactEntity;
 import com.ayush.backend.contact.enums.ContactStatus;
 import com.ayush.backend.contact.repositories.ContactRepository;
@@ -9,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,32 +19,40 @@ public class ContactServiceImpl implements IContactService {
     private final ContactRepository contactRepository;
 
     @Override
-    public boolean saveContact(ContactDto contactDto) {
-        ContactEntity contactEntity= this.transformToEntity(contactDto);
-        contactEntity.setContactStatus(ContactStatus.NEW);
+    public boolean saveContact(ContactRequestDto contactRequestDto) {
+        ContactEntity contactEntity= this.transformContactRequestDtoToEntity(contactRequestDto);
 
         ContactEntity savedContactEntity = this.contactRepository.save(contactEntity);
         return savedContactEntity.getId() != null;
     }
 
     @Override
-    public List<ContactDto> findAll() {
+    public List<ContactResponseDto> findAll() {
         List<ContactEntity> contacts= this.contactRepository.findAll();
-        return contacts.stream().map(this::transformToDto).collect(Collectors.toList());
+        return contacts
+                .stream()
+                .map(this::transformEntityToResponseDto)
+                .collect(Collectors.toList());
     }
 
-    private ContactDto transformToDto(ContactEntity contactEntity) {
-        return new ContactDto(
+    private ContactResponseDto transformEntityToResponseDto(ContactEntity contactEntity) {
+        return new ContactResponseDto(
+                contactEntity.getId(),
                 contactEntity.getName(),
                 contactEntity.getEmail(),
                 contactEntity.getSubject(),
-                contactEntity.getMessage()
+                contactEntity.getMessage(),
+                contactEntity.getContactStatus(),
+                contactEntity.getCreatedAt(),
+                contactEntity.getCreatedBy(),
+                contactEntity.getUpdatedAt(),
+                contactEntity.getUpdatedBy()
         );
     }
 
-    private ContactEntity transformToEntity(ContactDto contactDto) {
+    private ContactEntity transformContactRequestDtoToEntity(ContactRequestDto contactRequestDto) {
         ContactEntity contactEntity= new ContactEntity();
-        BeanUtils.copyProperties(contactDto, contactEntity);
+        BeanUtils.copyProperties(contactRequestDto, contactEntity);
 
         return contactEntity;
     }

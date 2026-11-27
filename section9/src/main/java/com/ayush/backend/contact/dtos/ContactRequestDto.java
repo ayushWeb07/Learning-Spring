@@ -1,15 +1,15 @@
 package com.ayush.backend.contact.dtos;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import com.ayush.backend.contact.enums.ContactStatus;
+import com.ayush.backend.job.enums.WorkType;
+import jakarta.validation.constraints.*;
 
 import java.io.Serializable;
 
 /**
  * DTO for {@link com.ayush.backend.contact.entities.ContactEntity}
  */
-public record ContactDto(
+public record ContactRequestDto(
         @NotBlank(message = "Name is required")
         @Size(min = 3, max = 100, message = "Name must be 3-100 characters")
         String name,
@@ -25,5 +25,9 @@ public record ContactDto(
 
         @NotBlank(message = "Message is required")
         @Size(min = 100, max = 500, message = "Message must be 100-500 characters")
-        String message) implements Serializable {
+        String message,
+
+        @NotNull(message = "Contact status is required")
+        ContactStatus contactStatus
+        ) implements Serializable {
 }

@@ -2,10 +2,7 @@ package com.ayush.backend.job.dtos;
 
 import com.ayush.backend.job.enums.JobStatus;
 import com.ayush.backend.job.enums.WorkType;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -26,6 +23,8 @@ public record JobDto(
         @Size(min = 5, max = 300, message = "Location must be 5-300 characters")
         String location,
 
+        @NotBlank(message = "Work type is required")
+        @Pattern(regexp = "FULL_TIME|PART_TIME|INTERNSHIP")
         WorkType workType,
 
         @NotBlank(message = "Experience level is required")
@@ -57,6 +56,8 @@ public record JobDto(
         @NotNull(message = "Applications count is required")
         Long applicationsCount,
 
+        @NotBlank(message = "Job status is required")
+        @Pattern(regexp = "ACTIVE|CLOSED|DRAFT")
         JobStatus jobStatus,
 
         Instant createdAt,
