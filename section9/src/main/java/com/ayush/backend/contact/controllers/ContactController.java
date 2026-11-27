@@ -24,7 +24,6 @@ public class ContactController {
                 .body(this.contactService.findAll());
     }
 
-
     @PostMapping
     public ResponseEntity<String> saveContact(@RequestBody @Valid ContactRequestDto contactRequestDto) {
         boolean isContactSaved= this.contactService.saveContact(contactRequestDto);

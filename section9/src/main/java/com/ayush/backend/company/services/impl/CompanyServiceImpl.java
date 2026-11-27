@@ -1,6 +1,7 @@
 package com.ayush.backend.company.services.impl;
 
-import com.ayush.backend.company.dtos.CompanyDto;
+import com.ayush.backend.company.dtos.CompanyRequestDto;
+import com.ayush.backend.company.dtos.CompanyResponseDto;
 import com.ayush.backend.company.entities.CompanyEntity;
 import com.ayush.backend.company.repositories.CompanyRepository;
 import com.ayush.backend.company.services.ICompanyService;
@@ -19,45 +20,41 @@ public class CompanyServiceImpl implements ICompanyService {
     private final CompanyRepository companyRepository;
 
     @Override
-    public List<CompanyDto> findAll() {
+    public boolean saveCompany(CompanyRequestDto companyRequestDto) {
+        CompanyEntity companyEntity= this.transformCompanyRequestDtoToEntity(companyRequestDto);
+        CompanyEntity savedCompanyEntity = this.companyRepository.save(companyEntity);
+        return savedCompanyEntity.getId() != null;
+    }
+
+    @Override
+    public List<CompanyResponseDto> findAll() {
         List<CompanyEntity> companyEntities= this.companyRepository.findAll();
 
         return companyEntities
                 .stream()
-                .map(this::transformToDto)
+                .map(this::transformEntityToResponseDto)
                 .collect(Collectors.toList());
     }
 
-    private JobDto transformToJobDto(JobEntity jobEntity) {
-        return new JobDto(
-                jobEntity.getId(),
-                jobEntity.getTitle(),
-                jobEntity.getLocation(),
-                jobEntity.getWorkType(),
-                jobEntity.getExperienceLevel(),
-                jobEntity.getMinSalary(),
-                jobEntity.getMaxSalary(),
-                jobEntity.getDescription(),
-                jobEntity.getRequirements(),
-                jobEntity.getPostedDate(),
-                jobEntity.getApplicationDeadline(),
-                jobEntity.getApplicationsCount(),
-                jobEntity.getJobStatus(),
-                jobEntity.getCreatedAt(),
-                jobEntity.getCreatedBy(),
-                jobEntity.getUpdatedAt(),
-                jobEntity.getUpdatedBy()
-        );
+    private CompanyEntity transformCompanyRequestDtoToEntity(CompanyRequestDto companyRequestDto) {
+        CompanyEntity companyEntity= new CompanyEntity();
+        BeanUtils.copyProperties(companyRequestDto, companyEntity);
+
+        return companyEntity;
     }
 
-    private CompanyDto transformToDto(CompanyEntity companyEntity) {
-        List<JobEntity> jobs= companyEntity.getJobs();
-
-        List<JobDto> jobsList= jobs
-                .stream()
-                .map(this::transformToJobDto)
-                .collect(Collectors.toList());
-
-        return new CompanyDto(companyEntity.getId(), companyEntity.getName(), companyEntity.getIndustry(), companyEntity.getNumEmployees(), companyEntity.getRating(), companyEntity.getDescription(), companyEntity.getWebsiteUrl(), jobsList, companyEntity.getCreatedAt(), companyEntity.getUpdatedAt());
+    private CompanyResponseDto transformEntityToResponseDto(CompanyEntity companyEntity) {
+        return new CompanyResponseDto(
+                companyEntity.getId(),
+                companyEntity.getName(),
+                companyEntity.getIndustry(),
+                companyEntity.getNumEmployees(),
+                companyEntity.getRating(),
+                companyEntity.getDescription(),
+                companyEntity.getWebsiteUrl(),
+                companyEntity.getCreatedAt(),
+                companyEntity.getCreatedBy(),
+                companyEntity.getUpdatedAt(),
+                companyEntity.getUpdatedBy());
     }
 }

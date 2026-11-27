@@ -1,20 +1,13 @@
 package com.ayush.backend.company.dtos;
 
-import com.ayush.backend.job.dtos.JobDto;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
-import java.time.Instant;
-import java.util.List;
-import java.util.UUID;
 
-public record CompanyDto(
-
-        UUID id,
-
+public record CompanyRequestDto(
         @NotBlank(message = "Name is required")
         @Size(min = 3, max = 100, message = "Name must be 3-100 characters")
         String name,
@@ -36,11 +29,5 @@ public record CompanyDto(
 
         @NotBlank(message = "Website url is required")
         @Size(min = 5, max = 300, message = "Website url must be 5-300 characters")
-        String websiteUrl,
-
-        List<JobDto> jobs,
-
-        Instant createdAt,
-
-        Instant updatedAt) {
+        String websiteUrl) {
 }
