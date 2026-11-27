@@ -42,4 +42,9 @@ public class CompanyEntity extends BaseEntity {
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<JobEntity> jobs= new ArrayList<>();
+
+    public void addJob(JobEntity jobEntity) {
+        this.jobs.add(jobEntity);
+        jobEntity.setCompany(this);
+    }
 }

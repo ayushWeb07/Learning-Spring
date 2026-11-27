@@ -5,8 +5,6 @@ import com.ayush.backend.company.dtos.CompanyResponseDto;
 import com.ayush.backend.company.entities.CompanyEntity;
 import com.ayush.backend.company.repositories.CompanyRepository;
 import com.ayush.backend.company.services.ICompanyService;
-import com.ayush.backend.job.dtos.JobDto;
-import com.ayush.backend.job.entities.JobEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;

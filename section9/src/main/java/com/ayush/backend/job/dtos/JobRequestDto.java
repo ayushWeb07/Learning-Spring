@@ -12,8 +12,9 @@ import java.util.UUID;
 /**
  * DTO for {@link com.ayush.backend.job.entities.JobEntity}
  */
-public record JobDto(
-        UUID id,
+public record JobRequestDto(
+        @NotNull(message = "Company id is required")
+        UUID companyId,
 
         @NotBlank(message = "Title is required")
         @Size(min = 5, max = 255, message = "Title must be 5-255 characters")
@@ -23,8 +24,7 @@ public record JobDto(
         @Size(min = 5, max = 300, message = "Location must be 5-300 characters")
         String location,
 
-        @NotBlank(message = "Work type is required")
-        @Pattern(regexp = "FULL_TIME|PART_TIME|INTERNSHIP")
+        @NotNull(message = "Work type is required")
         WorkType workType,
 
         @NotBlank(message = "Experience level is required")
@@ -47,26 +47,16 @@ public record JobDto(
         @Size(min = 200, max = 2500, message = "Requirements must be 200-2500 characters")
         String requirements,
 
-        @NotBlank(message = "Posted date is required")
+        @NotNull(message = "Posted date is required")
         Instant postedDate,
 
-        @NotBlank(message = "Application deadline is required")
+        @NotNull(message = "Application deadline is required")
         Instant applicationDeadline,
 
         @NotNull(message = "Applications count is required")
         Long applicationsCount,
 
-        @NotBlank(message = "Job status is required")
-        @Pattern(regexp = "ACTIVE|CLOSED|DRAFT")
-        JobStatus jobStatus,
-
-        Instant createdAt,
-
-        String createdBy,
-
-        Instant updatedAt,
-
-        String updatedBy
-
+        @NotNull(message = "Job status is required")
+        JobStatus jobStatus
 ) implements Serializable {
 }
